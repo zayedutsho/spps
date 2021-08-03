@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GITUSERS</title>
+  <style>
+    ul{
+      list-style: none;
+    }
+
+    li{
+      background: grey;
+    padding-top: 20px;
+  
+    margin-right: 600px;
+    text-align: center;
+    }
+  </style>
+</head>
+<body>
+    
+  <button id ="git">Gitusers</button>
+  <h1>Github users</h1>
+  <section id="userinfo"></section>
+  <script>
+    document.getElementById("git").addEventListener('click',getusers);
+
+
+
+    function getusers (){
+     
+
+           var req = new XMLHttpRequest();//engine being called here
+           req .open('GET', '  https://api.github.com/users');
+           req.onload =function(){
+            if(req.status==200){
+              var pepole = JSON.parse(req.responseText);
+            
+
+            var login = pepole.login;
+            var id =pepole.id;
+            var repos_url = pepole.repos_url;
+            var avatar_url = pepole.avatar_url;
+            var gists_url = pepole.gists_url;
+            var events_url = pepole.events_url;
+
+            var output = '';
+            for (var i in pepole)
+              { output +='<div>'+
+                '<img src ='+pepole[i].avatar_url + 'width ="100" height ="100">' +
+                '<ul>' +
+
+                  '<li>ID:'+' "'+ pepole[i].id+'"'+'</li>'+
+                 '<li>login:'+' "'+ pepole[i].login+'"'+'</li>'+
+                 '<li>repos_url:'+' "'+ pepole[i].repos_url+'"'+'</li>'+
+                 '<li> avatar_url:'+' "'+ pepole[i].avatar_url+'"'+'</li>'+
+                 '<li> events_url:'+' "'+ pepole[i].events_url+'"'+'</li>'+
+
+                
+
+
+
+
+                  '</ul>'+
+                  '</div>';
+                document.getElementById('userinfo').innerHTML = output;
+                } 
+               } 
+             }
+            
+            req.send();
+}
+
+  </script>
+
+
+</body>
+</html>
